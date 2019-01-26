@@ -23,7 +23,9 @@ import Partial.Unsafe (unsafePartial)
 validateContainsMixedCase
   :: String
   -> V (NonEmptyList InvalidPrimitive) String
-validateContainsMixedCase input = ?solution
+validateContainsMixedCase input =
+  validateContainsLowercase input *>
+  validateContainsUppercase input
 
 --------------------------------------------------------------------------------
 main :: Eff (console :: CONSOLE) Unit

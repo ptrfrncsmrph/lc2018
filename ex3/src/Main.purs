@@ -25,7 +25,11 @@ validatePassword
   -> Int
   -> Int
   -> V (NonEmptyList InvalidField) Password
-validatePassword input minLength maxLength = ?solution
+validatePassword input minLength maxLength = 
+  let result = validateNonEmpty input
+            *> validateLength input minLength maxLength
+            *> validateContainsMixedCase input
+  in bimap (singleton <<< InvalidPassword) Password result
 
 --------------------------------------------------------------------------------
 main :: Eff (console :: CONSOLE) Unit
