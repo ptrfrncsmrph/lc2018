@@ -17,7 +17,9 @@ import Data.Validation.Semigroup (V, invalid, unV)
 validateContainsUppercase
  	:: String
  	-> V (NonEmptyList InvalidPrimitive) String
-validateContainsUppercase input = ?solution
+validateContainsUppercase input
+  | toLower input == input = invalid (singleton (NoUppercase input))
+  | otherwise = pure input
 
 --------------------------------------------------------------------------------
 main :: Eff (console :: CONSOLE) Unit

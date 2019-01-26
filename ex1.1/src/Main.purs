@@ -18,7 +18,11 @@ import Data.Validation.Semigroup (V, invalid, unV)
 validateNonEmpty 
   :: String 
   -> V (NonEmptyList InvalidPrimitive) String
-validateNonEmpty input = ?solution
+validateNonEmpty input = 
+  case null input of
+    true -> invalid (singleton (EmptyField))
+    _    -> pure input
+    
 
 --------------------------------------------------------------------------------
 main :: Eff (console :: CONSOLE) Unit
